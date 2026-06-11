@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carnet de Santé et Maternité</title>
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> -->
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+
+<!-- ==================== PAGE AUTH ==================== -->
+  <div class="page active" id="page-auth">
+    <div style="background: red; padding-right: 0px; ">
+      <!-- <div class="auth-logo">
+        <div class="auth-logo-mark"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="auth-logo-text">
+          <strong>Carnet de Santé et Maternité</strong>
+          <span>Votre santé, notre priorité</span>
+        </div>
+      </div> -->
+
+      <div class="auth-card">
+        <!-- <div class="auth-tabs">
+          <button class="auth-tab active" onclick="switchAuthTab('login')">
+            <i class="fa-solid fa-right-to-bracket"></i> Connexion
+          </button>
+          <button class="auth-tab" onclick="switchAuthTab('register')">
+            <i class="fa-solid fa-user-plus"></i> Inscription
+          </button>
+        </div> -->
+
+        <!-- LOGIN -->
+        <div class="auth-panel active" id="panel-login">
+          <div class="icon-row"><div class="icon-circle"><i class="fa-solid fa-lock"></i></div></div>
+          <h1>Bienvenue !</h1>
+          <p class="subtitle">Connectez-vous à votre espace</p>
+          <div id="msg-login" class="msg"></div>
+          <div class="field">
+            <label>Nom d'utilisateur</label>
+            <div class="input-box">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" id="l-user" placeholder="Votre nom d'utilisateur">
+            </div>
+          </div>
+          <div class="field">
+            <label>Mot de passe</label>
+            <div class="input-box">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="l-pass" placeholder="Votre mot de passe">
+              <button class="eye-btn" onclick="togglePwd('l-pass',this)"><i class="fa-regular fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="options">
+            <label class="remember"><input type="checkbox"> Se souvenir de moi</label>
+            <a href="#" class="forgot">Mot de passe oublié ?</a>
+          </div>
+          <button class="main-btn" onclick="login()">Se connecter <i class="fa-solid fa-arrow-right"></i></button>
+          <div class="separator"><hr><span>ou</span><hr></div>
+          <p class="switch-link">Pas encore de compte ? <a onclick="switchAuthTab('register')">S'inscrire</a></p>
+        </div>
+
+        <!-- REGISTER -->
+        <div class="auth-panel" id="panel-register">
+          <div class="icon-row"><div class="icon-circle"><i class="fa-solid fa-user-plus"></i></div></div>
+          <h1>Créer un compte</h1>
+          <p class="subtitle">Rejoignez votre espace santé</p>
+          <div id="msg-register" class="msg"></div>
+          <div class="field">
+            <label>Nom d'utilisateur</label>
+            <div class="input-box">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" id="r-user" placeholder="Choisissez un nom d'utilisateur">
+            </div>
+          </div>
+          <div class="field">
+            <label>Mot de passe</label>
+            <div class="input-box">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="r-pass" placeholder="Choisissez un mot de passe">
+              <button class="eye-btn" onclick="togglePwd('r-pass',this)"><i class="fa-regular fa-eye"></i></button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Confirmer le mot de passe</label>
+            <div class="input-box">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="r-confirm" placeholder="Répétez le mot de passe">
+              <button class="eye-btn" onclick="togglePwd('r-confirm',this)"><i class="fa-regular fa-eye"></i></button>
+            </div>
+          </div>
+          <button class="main-btn" onclick="register()">S'inscrire <i class="fa-solid fa-user-plus"></i></button>
+          <div class="separator"><hr><span>ou</span><hr></div>
+          <p class="switch-link">Déjà un compte ? <a onclick="switchAuthTab('login')">Se connecter</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE APP ==================== -->
+  <div class="page" id="page-app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-mark"><i class="fa-solid fa-heart-pulse"></i></div>
+        <div class="sidebar-logo-text">
+          <strong>Carnet de Santé<br>et Maternité</strong>
+          <span>Votre santé, notre priorité</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="showView('dashboard')" id="nav-dashboard">
+          <i class="fa-solid fa-house"></i> Tableau de bord
+        </button>
+        <button class="nav-item" onclick="showView('patientes')" id="nav-patientes">
+          <i class="fa-regular fa-user"></i> Patientes
+        </button>
+        <button class="nav-item add-btn" onclick="showView('ajouter')" id="nav-ajouter">
+          <i class="fa-solid fa-plus"></i> Ajouter une patiente
+        </button>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-info">
+          <div class="user-avatar"><i class="fa-solid fa-user-doctor"></i></div>
+          <div>
+            <div class="user-name" id="user-display">Dr. Aissata Diallo</div>
+            <div class="user-role">Médecin</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="topbar-title">
+          <h2 id="page-title">Tableau de bord</h2>
+          <p id="page-subtitle">Bienvenue, <span id="topbar-username">Dr.Aissata Diallo</span></p>
+        </div>
+        <div class="topbar-right">
+          <button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-badge">5</span></button>
+          <div class="date-chip" id="date-chip"></div>
+        </div>
+      </header>
+
+      <!-- CONTENT VIEWS -->
+      <div class="content">
+
+        <!-- DASHBOARD VIEW -->
+        <div id="view-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon purple"><i class="fa-solid fa-users"></i></div>
+              <div>
+                <div class="stat-num" id="stat-total">128</div>
+                <div class="stat-label">Patientes</div>
+                <div class="stat-sub">Total enregistré</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon pink"><i class="fa-solid fa-baby"></i></div>
+              <div>
+                <div class="stat-num">45</div>
+                <div class="stat-label">Grossesse en cours</div>
+                <div class="stat-sub">Actives actuellement</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon teal"><i class="fa-regular fa-calendar-check"></i></div>
+              <div>
+                <div class="stat-num">12</div>
+                <div class="stat-label">Rendez-vous à venir</div>
+                <div class="stat-sub">Dans les 7 prochains jours</div>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon orange"><i class="fa-regular fa-bell"></i></div>
+              <div>
+                <div class="stat-num">5</div>
+                <div class="stat-label">Alertes</div>
+                <div class="stat-sub">À surveiller</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-grid">
+            <!-- RDV -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Rendez-vous à venir</h3>
+                <a class="voir-tout" onclick="showView('patientes')">Voir tout</a>
+              </div>
+              <div class="rdv-row">
+                <div class="rdv-date"><span class="day">22</span><span class="mon">Mai</span></div>
+                <div class="rdv-info">
+                  <div class="rdv-name">Awa Camara</div>
+                  <div class="rdv-type">Consultation prénatale</div>
+                </div>
+                <div class="rdv-time"><i class="fa-regular fa-clock"></i> 09:00</div>
+                <span class="rdv-tag demain">Demain</span>
+              </div>
+              <div class="rdv-row">
+                <div class="rdv-date"><span class="day">23</span><span class="mon">Mai</span></div>
+                <div class="rdv-info">
+                  <div class="rdv-name">Mariama Sy</div>
+                  <div class="rdv-type">Consultation prénatale</div>
+                </div>
+                <div class="rdv-time"><i class="fa-regular fa-clock"></i> 11:30</div>
+                <span class="rdv-tag j2">Dans 2 jours</span>
+              </div>
+              <div class="rdv-row">
+                <div class="rdv-date"><span class="day">24</span><span class="mon">Mai</span></div>
+                <div class="rdv-info">
+                  <div class="rdv-name">Fatoumata Traore</div>
+                  <div class="rdv-type">Consultation prénatale</div>
+                </div>
+                <div class="rdv-time"><i class="fa-regular fa-clock"></i> 14:00</div>
+                <span class="rdv-tag j3">Dans 3 jours</span>
+              </div>
+              <div class="rdv-row">
+                <div class="rdv-date"><span class="day">25</span><span class="mon">Mai</span></div>
+                <div class="rdv-info">
+                  <div class="rdv-name">Kadiatou Bah</div>
+                  <div class="rdv-type">Consultation prénatale</div>
+                </div>
+                <div class="rdv-time"><i class="fa-regular fa-clock"></i> 10:00</div>
+                <span class="rdv-tag j4">Dans 4 jours</span>
+              </div>
+            </div>
+
+            <!-- ALERTES -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Alertes récentes</h3>
+                <a class="voir-tout" href="#">Voir tout</a>
+              </div>
+              <div class="alert-row">
+                <div class="alert-dot red"></div>
+                <div class="alert-info">
+                  <div class="alert-title">Anémie détectée</div>
+                  <div class="alert-patient">Awa Camara</div>
+                </div>
+                <div class="alert-time">il y'a 1h</div>
+              </div>
+              <div class="alert-row">
+                <div class="alert-dot orange"></div>
+                <div class="alert-info">
+                  <div class="alert-title">Rendez-vous manqué</div>
+                  <div class="alert-patient">Mariama Sy</div>
+                </div>
+                <div class="alert-time">il y'a 3h</div>
+              </div>
+              <div class="alert-row">
+                <div class="alert-dot teal"></div>
+                <div class="alert-info">
+                  <div class="alert-title">Pression artérielle manque</div>
+                  <div class="alert-patient">Fatoumata Traore</div>
+                </div>
+                <div class="alert-time">il y'a 5h</div>
+              </div>
+              <div class="alert-row">
+                <div class="alert-dot purple"></div>
+                <div class="alert-info">
+                  <div class="alert-title">Échographie en retard</div>
+                  <div class="alert-patient">Kadiatou Bah</div>
+                </div>
+                <div class="alert-time">il y'a 1h</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PATIENTES VIEW -->
+        <div id="view-patientes" class="hidden">
+          <div class="search-bar">
+            <div class="search-input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-input" placeholder="Recherche par nom, prénom ou téléphone ..." oninput="filterPatients()">
+            </div>
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+
+          <div class="patients-table">
+            <div class="table-head">
+              <span>Nom et prénom</span>
+              <span>Âge</span>
+              <span>Téléphone</span>
+              <span>Dernières consultations</span>
+              <span>Statut</span>
+            </div>
+            <div id="patients-list"></div>
+            <div class="table-footer" id="patients-count"></div>
+          </div>
+        </div>
+
+        <!-- AJOUTER VIEW -->
+        <div id="view-ajouter" class="hidden">
+          <div class="form-card">
+            <h3><i class="fa-solid fa-user-plus" style="color:var(--purple);margin-right:8px;"></i>Nouvelle patiente</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" class="form-control" id="f-prenom" placeholder="Prénom">
+              </div>
+              <div class="form-group">
+                <label>Nom</label>
+                <input type="text" class="form-control" id="f-nom" placeholder="Nom de famille">
+              </div>
+              <div class="form-group">
+                <label>Âge</label>
+                <input type="number" class="form-control" id="f-age" placeholder="Ex: 28" min="10" max="60">
+              </div>
+              <div class="form-group">
+                <label>Téléphone</label>
+                <input type="tel" class="form-control" id="f-tel" placeholder="77 XXX XX XX">
+              </div>
+              <div class="form-group">
+                <label>Date de naissance</label>
+                <input type="date" class="form-control" id="f-dob">
+              </div>
+              <div class="form-group">
+                <label>Statut</label>
+                <select class="form-control" id="f-statut">
+                  <option value="normal">Normal</option>
+                  <option value="grossesse">Grossesse en cours</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Dernière consultation</label>
+                <input type="date" class="form-control" id="f-consult">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn-primary" onclick="addPatient()"><i class="fa-solid fa-plus"></i> Enregistrer</button>
+              <button class="btn-secondary" onclick="showView('patientes')">Annuler</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /main -->
+  </div><!-- /page-app -->
+  <script src="script.js"></script>
+  <!-- TOAST -->
+  <div id="toast"><i class="fa-solid fa-check-circle"></i> <span id="toast-msg">Succès !</span></div>
+
+
+
+</body>
+</html>
